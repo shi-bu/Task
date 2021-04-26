@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>RaiseTech Task</title>
+</head>
+<body>
+	<h1>メモ一覧</h1>
+	<form action="/memo" method="post">
+		IDを入力：
+		<input type="text" name="memoId" th:value="${memoId_value}" />
+		<input type="submit" value="検索" />
+	</form>
+	<br>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>題名</th>
+			<th>内容</th>
+		</tr>
+		<tr th:each="memo:${memos}">
+			<td th:text="${memo.memoId}"></td>
+			<td th:text="${memo.title}"></td>
+			<td th:text="${memo.content}"></td>
+		</tr>
+	</table>
+</body>
+</html>
