@@ -9,18 +9,18 @@ import com.example.demo.memo.repository.Memo;
 import com.example.demo.memo.repository.mybatis.MemoMapper;
 
 @Service
-public class MemoService implements MemoMapper {
+public class MemoService {
 
 	@Autowired
 	private MemoMapper memoMapper;
 	
-	@Override
+
 	public List<Memo> selectAll() {
 		
 		return memoMapper.selectAll(); 
 	}
 	
-	@Override
+
 	public Memo selectOne(int id) {
 		
 		return memoMapper.selectOne(id); 
