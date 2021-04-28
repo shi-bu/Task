@@ -1,4 +1,4 @@
-package com.example.demo.Memo;
+package com.example.demo.memo.controller;
 
 import java.util.List;
 
@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.memo.repository.Memo;
+import com.example.demo.memo.service.MemoService;
+
 @Controller
 public class MemoController {
 	
@@ -18,7 +21,7 @@ public class MemoController {
 	@GetMapping("/index")
 	public String getIndex(Model model) {
 		
-		List<Memo> memos = memoService.findAll();
+		List<Memo> memos = memoService.selectAll();
 		model.addAttribute("memos", memos);
 		
 		return "index";
@@ -29,7 +32,7 @@ public class MemoController {
 		
 		int id = Integer.parseInt(str);
 		
-		Memo memo = memoService.findOne(id);
+		Memo memo = memoService.selectOne(id);
 		
 		model.addAttribute("memoId", memo.getMemoId());
 		model.addAttribute("title", memo.getTitle());

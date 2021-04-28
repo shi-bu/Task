@@ -1,4 +1,4 @@
-package com.example.demo.Memo;
+package com.example.demo.memo.repository;
 
 import lombok.Data;
 
