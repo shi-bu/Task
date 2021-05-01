@@ -27,17 +27,46 @@ public class MemoController {
 		return "index";
 	}
 	
-	@PostMapping("/memo")
-	public String memoSearch(@RequestParam("memoId")String str, Model model) {
+	@GetMapping("/search")
+	public String memoSearch(@RequestParam("title")String title, Model model) {
 		
-		int id = Integer.parseInt(str);
-		
-		Memo memo = memoService.selectOne(id);
+		Memo memo = memoService.search(title);
 		
 		model.addAttribute("memoId", memo.getMemoId());
 		model.addAttribute("title", memo.getTitle());
 		model.addAttribute("content", memo.getContent());
 		
 		return "searchResult";
+	}
+	
+	@GetMapping("/details")
+	public String memoDetails(@RequestParam("memoId")String str, Model model) {
+		
+		int id = Integer.parseInt(str);
+		Memo memo = memoService.selectOne(id);
+		
+		model.addAttribute("memoId", memo.getMemoId());
+		model.addAttribute("title", memo.getTitle());
+		model.addAttribute("content", memo.getContent());
+		
+		return "memoDetails";
+	}
+	
+	@GetMapping("/create")
+	public String memoAddDisplay() {
+		return "create";
+	}
+	
+	@PostMapping("/create")
+	public String memoAdd(@RequestParam("title")String title, @RequestParam("content")String content, Model model) {
+		
+		Memo memo = new Memo();
+		memo.setTitle(title);
+		memo.setContent(content);
+		
+		//resultは処理の成功/失敗確認に後で使用する
+		boolean result = memoService.insert(memo);
+		
+		return "redirect:/index";
 	}
 }

@@ -20,6 +20,17 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			memo
 	</select>
 	
+	<select id="search" parameterType="String" resultType="com.example.demo.memo.repository.Memo">
+		SELECT
+			memoId,
+			title,
+			content
+		FROM
+			memo
+		WHERE
+			title LIKE #{title}
+	</select>
+	
 	<select id="selectOne" parameterType="int" resultType="com.example.demo.memo.repository.Memo">
 		SELECT
 			memoId,
@@ -30,4 +41,13 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		WHERE
 			memoId = #{id}
 	</select>
+	
+	<insert id="insert" parameterType="com.example.demo.memo.repository.Memo">
+		INSERT INTO memo(
+			title,
+			content) 
+		VALUES(
+			#{title},
+			#{content})
+	</insert>
 </mapper>
