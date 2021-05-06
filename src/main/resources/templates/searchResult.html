@@ -19,5 +19,7 @@
 	</table>
 	<br>
 	<a th:href="@{/index}">戻る</a>
+	<a th:href="@{'/edit/' + ${memo.memoId}}">編集</a>
+	<a th:href="@{'/delete/' + ${memo.memoId}}">削除</a>
 </body>
 </html>
