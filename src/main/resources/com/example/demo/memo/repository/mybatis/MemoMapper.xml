@@ -20,6 +20,17 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			memo
 	</select>
 	
+	<select id="search" parameterType="com.example.demo.memo.repository.Memo" resultType="com.example.demo.memo.repository.Memo">
+		SELECT
+			memoId,
+			title,
+			content
+		FROM
+			memo
+		WHERE
+			title LIKE #{title}
+	</select>
+	
 	<select id="selectOne" parameterType="int" resultType="com.example.demo.memo.repository.Memo">
 		SELECT
 			memoId,
@@ -28,6 +39,29 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		FROM
 			memo
 		WHERE
-			memoId = #{id}
+			memoId = #{memoId}
 	</select>
+	
+	<insert id="insert" parameterType="com.example.demo.memo.repository.Memo">
+		INSERT INTO memo(
+			title,
+			content) 
+		VALUES(
+			#{title},
+			#{content})
+	</insert>
+	
+	<update id="update" parameterType="com.example.demo.memo.repository.Memo">
+		UPDATE memo SET 
+			title = #{title},
+			content = #{content}
+		WHERE
+			memoId = #{memoId}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM memo
+		WHERE
+			memoId = #{memoId}
+	</delete>
 </mapper>

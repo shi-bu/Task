@@ -21,8 +21,29 @@ public class MemoService implements MemoMapper {
 	}
 	
 	@Override
+	public Memo search(Memo title) {
+		
+		return memoMapper.search(title); 
+	}
+	
+	@Override
 	public Memo selectOne(int id) {
 		
-		return memoMapper.selectOne(id); 
+		return memoMapper.selectOne(id);
+	}
+	
+	@Override
+	public void insert(Memo memo) {
+		memoMapper.insert(memo);
+	}
+	
+	@Override
+	public void update(Memo memo) {
+		memoMapper.update(memo);
+	}
+	
+	@Override
+	public void delete(int id) {
+		memoMapper.delete(id);
 	}
 }

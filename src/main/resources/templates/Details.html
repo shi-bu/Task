@@ -2,22 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>メモの検索結果</title>
+<link rel="stylesheet" href="style.css"></link>
+<title>メモの詳細</title>
 </head>
 <body>
-	<h1>検索結果</h1>
+	<h1>メモの詳細</h1>
 	<table th:object="${memo}">
 		<tr>
 			<td>ID：</td><td th:text="*{memoId}"></td>
 		</tr>
 		<tr>
-			<td>題名：</td><td th:text="*{title}"></td>
+			<td>タイトル：</td><td th:text="*{title}"></td>
 		</tr>
 		<tr>
 			<td>内容：</td><td th:text="*{content}"></td>
 		</tr>
 	</table>
 	<br>
-	<a th:href="@{/index}">戻る</a>
+	<a href="/index">戻る</a>
+	<a th:href="@{'/edit/' + ${memoId}}">編集</a>
+	<a th:href="@{'/delete/' + ${memoId}}">削除</a>
 </body>
 </html>
