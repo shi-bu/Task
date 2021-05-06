@@ -21,7 +21,7 @@ public class MemoService implements MemoMapper {
 	}
 	
 	@Override
-	public Memo search(String title) {
+	public Memo search(Memo title) {
 		
 		return memoMapper.search(title); 
 	}
@@ -33,8 +33,17 @@ public class MemoService implements MemoMapper {
 	}
 	
 	@Override
-	public boolean insert(Memo memo) {
-		
-		return memoMapper.insert(memo);
+	public void insert(Memo memo) {
+		memoMapper.insert(memo);
+	}
+	
+	@Override
+	public void update(Memo memo) {
+		memoMapper.update(memo);
+	}
+	
+	@Override
+	public void delete(int id) {
+		memoMapper.delete(id);
 	}
 }

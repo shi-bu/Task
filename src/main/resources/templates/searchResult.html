@@ -6,18 +6,18 @@
 </head>
 <body>
 	<h1>検索結果</h1>
-	<table>
+	<table th:object="${memo}">
 		<tr>
-			<td>ID：</td><td th:text="${memoId}"></td>
+			<td>ID：</td><td th:text="*{memoId}"></td>
 		</tr>
 		<tr>
-			<td>題名：</td><td th:text="${title}"></td>
+			<td>題名：</td><td th:text="*{title}"></td>
 		</tr>
 		<tr>
-			<td>内容：</td><td th:text="${content}"></td>
+			<td>内容：</td><td th:text="*{content}"></td>
 		</tr>
 	</table>
 	<br>
-	<a href="/index">戻る</a>
+	<a th:href="@{/index}">戻る</a>
 </body>
 </html>

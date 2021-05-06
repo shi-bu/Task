@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.memo.repository.Memo;
 import com.example.demo.memo.service.MemoService;
@@ -27,29 +28,24 @@ public class MemoController {
 		return "index";
 	}
 	
-	@GetMapping("/search")
-	public String memoSearch(@RequestParam("title")String title, Model model) {
+	@PostMapping("/search")
+	public String memoSearch(@ModelAttribute Memo title, Model model) {
 		
 		Memo memo = memoService.search(title);
 		
-		model.addAttribute("memoId", memo.getMemoId());
-		model.addAttribute("title", memo.getTitle());
-		model.addAttribute("content", memo.getContent());
+		model.addAttribute("memo", memo);
 		
 		return "searchResult";
 	}
 	
-	@GetMapping("/details")
-	public String memoDetails(@RequestParam("memoId")String str, Model model) {
+	@GetMapping("/details/{memoId}")
+	public String memoDetails(@PathVariable("memoId") int id, Model model) {
 		
-		int id = Integer.parseInt(str);
 		Memo memo = memoService.selectOne(id);
 		
-		model.addAttribute("memoId", memo.getMemoId());
-		model.addAttribute("title", memo.getTitle());
-		model.addAttribute("content", memo.getContent());
+		model.addAttribute("memo", memo);
 		
-		return "memoDetails";
+		return "Details";
 	}
 	
 	@GetMapping("/create")
@@ -58,14 +54,35 @@ public class MemoController {
 	}
 	
 	@PostMapping("/create")
-	public String memoAdd(@RequestParam("title")String title, @RequestParam("content")String content, Model model) {
+	public String memoAdd(@ModelAttribute Memo memo) {
 		
-		Memo memo = new Memo();
-		memo.setTitle(title);
-		memo.setContent(content);
+		 memoService.insert(memo);
 		
-		//resultは処理の成功/失敗確認に後で使用する
-		boolean result = memoService.insert(memo);
+		return "redirect:/index";
+	}
+	
+	@GetMapping("/edit/{memoId}")
+	public String memoEditDisplay(@PathVariable("memoId") int id, Model model) {
+		
+		Memo memo = memoService.selectOne(id);
+		
+		model.addAttribute("memo", memo);
+		
+		return "edit";
+	}
+	
+	@PostMapping("/edit/{memoId}")
+	public String memoEdit(@ModelAttribute Memo memo) {
+		
+		memoService.update(memo);
+		
+		return "redirect:/details/{memoId}";
+	}
+	
+	@GetMapping("/delete/{memoId}")
+	public String memoDelete(@PathVariable("memoId") int id) {
+		
+		memoService.delete(id);
 		
 		return "redirect:/index";
 	}

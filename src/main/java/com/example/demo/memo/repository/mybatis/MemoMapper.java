@@ -10,7 +10,9 @@ import com.example.demo.memo.repository.Memo;
 public interface MemoMapper {
 
 	public List<Memo> selectAll();
-	public Memo search(String title);
+	public Memo search(Memo title);
 	public Memo selectOne(int id);
-	public boolean insert(Memo memo);
+	public void insert(Memo memo);
+	public void update(Memo memo);
+	public void delete(int id);
 }
